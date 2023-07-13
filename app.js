@@ -5,7 +5,9 @@ const express = require('express');
 const app = express();
 require("./utils/db.util");
 const errorHandler = require("./middlewares/err.middleware");
-const profileRotues = require("./routes/profile.routes");
+const profileRoutes = require("./routes/profile.routes");
+const commentsRoutes = require("./routes/comments.routes");
+const votingRoutes = require("./routes/votes.routes");
 
 
 app.use(express.json()) // parsing body
@@ -16,7 +18,9 @@ const port =  process.env.NODE_ENV == 'development'?  process.env.DEV_PORT : pro
 app.set('view engine', 'ejs');
 
 // routes
-app.use('/apis/v1', profileRotues);
+app.use('/apis/v1/profile', profileRoutes);
+app.use("/apis/v1/comment", commentsRoutes);
+app.use("/apis/v1/voting", votingRoutes);
 
 // error handling
 app.use(errorHandler);
