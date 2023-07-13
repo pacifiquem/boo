@@ -1,17 +1,18 @@
-'use strict';
+"use strict";
 
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const profiles = require("../utils/profileData.utils");
+const {
+  getAllProfiles,
+  createProfile,
+  getProfileById
+} = require("../controllers/profile.controller");
 
+router
+  .route("/")
+  .get(getAllProfiles)
+  .post(createProfile);
 
-module.exports = function() {
+router.route("/:profileId").get(getProfileById);
 
-  router.get('/*', function(req, res, next) {
-    res.render('profile_template', {
-      profile: profiles[0],
-    });
-  });
-
-  return router;
-}
+module.exports = router;
